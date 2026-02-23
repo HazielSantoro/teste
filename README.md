@@ -33,7 +33,7 @@ Sistema web MVC para gestão de ateliê de impressão 3D (props, armas e acessó
    - `SESSION_TIMEOUT`, `UPLOAD_LIMIT_MB`
 5. Suba o app PHP:
    ```bash
-   php -S localhost:8000
+   php -S localhost:8000 router.php
    ```
 6. Acesse `http://localhost:8000`.
 
@@ -68,3 +68,11 @@ npm start
 ## Observações
 - O endpoint Correios está em modo *stub* para integração oficial posterior.
 - Upload STL deve ser implementado com validação MIME, extensão e tamanho usando configuração dinâmica.
+
+## Usuário administrador padrão
+Após importar `database.sql`, já existe um usuário admin:
+- **Usuário:** `admin`
+- **E-mail:** `admin@atelie.local`
+- **Senha:** `admin`
+
+> Altere a senha imediatamente no primeiro acesso em produção.

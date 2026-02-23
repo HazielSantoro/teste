@@ -25,6 +25,9 @@ CREATE TABLE users (
     CONSTRAINT fk_users_role FOREIGN KEY (role_id) REFERENCES roles(id)
 );
 
+INSERT INTO users (nome, email, usuario, senha, telefone, instagram, cidade, estado, role_id) VALUES
+('Administrador', 'admin@atelie.local', 'admin', '$2y$12$fgfyWYFVg/4o.1YM36h2fuC6/4Vpi6Oe37tm06ICcxdZEqcu28UVS', '', '', 'N/A', 'SP', 1);
+
 CREATE TABLE categorias (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL

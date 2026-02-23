@@ -9,7 +9,14 @@ session_set_cookie_params([
 ]);
 session_start();
 
-require __DIR__ . '/vendor/autoload.php';
+$autoload = __DIR__ . '/vendor/autoload.php';
+if (!file_exists($autoload)) {
+    http_response_code(500);
+    echo 'Dependências PHP não instaladas. Execute: composer install';
+    exit;
+}
+
+require $autoload;
 
 spl_autoload_register(static function ($class): void {
     $folders = ['core', 'controllers', 'models', 'services'];
