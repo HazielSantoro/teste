@@ -1,0 +1,9 @@
+{
+  "name": "atelie/erp-3d-cosplay",
+  "description": "ERP web para ateliê de impressão 3D cosplay",
+  "require": {
+    "php": ">=8.0",
+    "phpmailer/phpmailer": "^6.9",
+    "dompdf/dompdf": "^2.0"
+  }
+}
