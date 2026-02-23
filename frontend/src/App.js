@@ -1,53 +1,112 @@
-import { useEffect } from "react";
-import "@/App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { AuthProvider, useAuth } from "./context/AuthContext";
+import { Toaster } from "./components/ui/sonner";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
+// Pages
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import AdminDashboard from "./pages/admin/Dashboard";
+import AdminOrders from "./pages/admin/Orders";
+import AdminClients from "./pages/admin/Clients";
+import AdminMaterials from "./pages/admin/Materials";
+import ClientDashboard from "./pages/client/Dashboard";
+import ClientOrders from "./pages/client/Orders";
+import TrackOrder from "./pages/TrackOrder";
 
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
-    }
-  };
+// Protected Route Component
+const ProtectedRoute = ({ children, adminOnly = false }) => {
+  const { user, loading } = useAuth();
+  
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#09090b] flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange-500"></div>
+      </div>
+    );
+  }
+  
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+  
+  if (adminOnly && user.role !== 'admin') {
+    return <Navigate to="/client" replace />;
+  }
+  
+  return children;
+};
 
-  useEffect(() => {
-    helloWorldApi();
-  }, []);
-
-  return (
-    <div>
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
-    </div>
-  );
+// Redirect based on role
+const RoleRedirect = () => {
+  const { user, loading } = useAuth();
+  
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#09090b] flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange-500"></div>
+      </div>
+    );
+  }
+  
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+  
+  return <Navigate to={user.role === 'admin' ? '/admin' : '/client'} replace />;
 };
 
 function App() {
   return (
-    <div className="App">
+    <AuthProvider>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
-        </Routes>
+        <div className="dark">
+          <Routes>
+            {/* Public Routes */}
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/track/:orderId" element={<TrackOrder />} />
+            
+            {/* Root redirect */}
+            <Route path="/" element={<RoleRedirect />} />
+            
+            {/* Admin Routes */}
+            <Route path="/admin" element={
+              <ProtectedRoute adminOnly>
+                <AdminDashboard />
+              </ProtectedRoute>
+            } />
+            <Route path="/admin/orders" element={
+              <ProtectedRoute adminOnly>
+                <AdminOrders />
+              </ProtectedRoute>
+            } />
+            <Route path="/admin/clients" element={
+              <ProtectedRoute adminOnly>
+                <AdminClients />
+              </ProtectedRoute>
+            } />
+            <Route path="/admin/materials" element={
+              <ProtectedRoute adminOnly>
+                <AdminMaterials />
+              </ProtectedRoute>
+            } />
+            
+            {/* Client Routes */}
+            <Route path="/client" element={
+              <ProtectedRoute>
+                <ClientDashboard />
+              </ProtectedRoute>
+            } />
+            <Route path="/client/orders" element={
+              <ProtectedRoute>
+                <ClientOrders />
+              </ProtectedRoute>
+            } />
+          </Routes>
+          <Toaster richColors position="top-right" />
+        </div>
       </BrowserRouter>
-    </div>
+    </AuthProvider>
   );
 }
 
