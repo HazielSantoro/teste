@@ -1,0 +1,153 @@
+{
+  "project_name": "3D Print Master - SaaS Dashboard",
+  "design_philosophy": {
+    "theme": "Dark Industrial Minimalist",
+    "core_concept": "Precision, Heat, and Layers. The UI should feel like a high-end machine interface.",
+    "emotional_tone": "Technical, Reliable, Futuristic, Efficient.",
+    "visual_metaphor": "The 'Layered' Look - utilizing z-index and subtle borders to mimic 3D printing layers."
+  },
+  "typography": {
+    "headings": {
+      "font_family": "Manrope, sans-serif",
+      "weights": ["600", "700", "800"],
+      "usage": "All section titles, page headers, and major stats. Use tracking-tight (-0.02em) for sizes above 24px."
+    },
+    "body": {
+      "font_family": "Inter, sans-serif",
+      "weights": ["400", "500"],
+      "usage": "General text, descriptions, table data."
+    },
+    "mono": {
+      "font_family": "JetBrains Mono, monospace",
+      "weights": ["400"],
+      "usage": "Order IDs, G-code snippets, file sizes, timestamps, pricing breakdowns."
+    }
+  },
+  "colors": {
+    "background": {
+      "default": "#09090b",
+      "paper": "#18181b",
+      "subtle": "#27272a"
+    },
+    "primary": {
+      "default": "#f97316",
+      "foreground": "#ffffff",
+      "hover": "#ea580c",
+      "description": "Electric Orange - Represents heat and extrusion. Use for Primary CTAs and active states."
+    },
+    "secondary": {
+      "default": "#27272a",
+      "foreground": "#fafafa",
+      "hover": "#3f3f46"
+    },
+    "accent": {
+      "blue": "#3b82f6",
+      "purple": "#8b5cf6",
+      "green": "#22c55e",
+      "usage": "Blue for Info/Processing, Purple for Admin/System, Green for Success/Completed."
+    },
+    "border": {
+      "default": "#27272a",
+      "active": "#f97316"
+    },
+    "status": {
+      "pending": "#fbbf24",
+      "printing": "#3b82f6",
+      "completed": "#22c55e",
+      "cancelled": "#ef4444"
+    }
+  },
+  "visual_enhancers": {
+    "grid_background": "bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]",
+    "glass_panel": "bg-zinc-950/70 backdrop-blur-xl border border-white/10 shadow-2xl",
+    "neon_glow": "shadow-[0_0_20px_-5px_rgba(249,115,22,0.3)]",
+    "border_gradient": "border border-transparent bg-gradient-to-b from-zinc-700 to-zinc-900 bg-clip-border"
+  },
+  "layout": {
+    "spacing_scale": "Generous. Use p-6 or p-8 for cards. Gap-6 for grids.",
+    "border_radius": "rounded-lg (8px) for standard elements, rounded-xl (12px) for containers.",
+    "container_width": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+    "grid_strategy": {
+      "admin_dashboard": "Bento Grid Mode B (High Density). Use col-span-2 for charts, col-span-1 for stats.",
+      "client_gallery": "Tetris Grid Mode A (Visual). Staggered card sizes for 3D models."
+    }
+  },
+  "components": {
+    "cards": {
+      "style": "bg-zinc-900/50 border border-zinc-800 hover:border-zinc-700 transition-colors duration-200",
+      "content_padding": "p-6"
+    },
+    "buttons": {
+      "primary": "bg-orange-500 hover:bg-orange-600 text-white font-semibold shadow-lg shadow-orange-500/20 rounded-md",
+      "secondary": "bg-zinc-800 hover:bg-zinc-700 text-zinc-100 border border-zinc-700"
+    },
+    "inputs": {
+      "style": "bg-zinc-950 border-zinc-800 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all font-mono text-sm"
+    },
+    "status_badge": {
+      "style": "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border"
+    }
+  },
+  "image_urls": {
+    "hero_backgrounds": [
+      {
+        "url": "https://images.unsplash.com/photo-1764103659005-b7f14d25ce1a?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "description": "Abstract geometric neon lights - Use for Client Portal Hero background with overlay."
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1715059250871-08786b8a884a?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "description": "Purple/Black 3D printer close up - Use for Login/Auth pages."
+      }
+    ],
+    "placeholders": [
+      {
+        "url": "https://images.pexels.com/photos/12268465/pexels-photo-12268465.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "description": "Resin Printer printing - Use for 'New Order' or 'Services' card."
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1693344047149-2eefd915ddfc?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "description": "Abstract Clock/Time - Use for 'History' or 'Timeline' sections."
+      }
+    ]
+  },
+  "required_libraries": {
+    "3d_visualization": [
+      "three",
+      "@react-three/fiber",
+      "@react-three/drei"
+    ],
+    "animation": [
+      "framer-motion"
+    ],
+    "charts": [
+      "recharts"
+    ],
+    "icons": [
+      "lucide-react"
+    ],
+    "utils": [
+      "clsx",
+      "tailwind-merge",
+      "date-fns"
+    ]
+  },
+  "instructions_to_main_agent": [
+    "1. INSTALLATION: First, install missing 3D deps: `yarn add three @react-three/fiber @react-three/drei framer-motion`.",
+    "2. THEME OVERRIDE: Go to `index.css` and strictly replace the `.dark` layer colors with the 'Zinc + Orange' palette defined in 'colors' section. Do not use the default slate colors.",
+    "3. FONTS: Add '@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@600;700;800&display=swap');' to index.css.",
+    "4. 3D VIEWER: Create a generic `<STLViewer url={...} />` component using React Three Fiber. Use `<Stage>` from 'drei' for instant good lighting.",
+    "5. DASHBOARD LAYOUT: Create a reusable `DashboardShell` component with a sidebar (glassmorphism) and a main content area (with the grid background pattern).",
+    "6. STATUS PILLS: Create a mapped object for status colors. Pending=Yellow, Printing=Blue, Done=Green. Use `Badge` component from shadcn but styled with `border` and transparent bg.",
+    "7. FILE UPLOAD: The file upload area must be a 'Dropzone' that accepts .stl and .obj. Design it with a dashed orange border on hover."
+  ],
+  "universal_guidelines": [
+    "Do not use gradients for text.",
+    "Do not center-align dashboard widgets.",
+    "Always use 'Inter' for data tables.",
+    "Use 'Manrope' for all headings.",
+    "Ensure 3D viewer has a fallback/loading state.",
+    "Dark mode is mandatory. Do not build light mode unless requested.",
+    "Use 'Sonner' for notifications.",
+    "Add data-testid to all interactive elements."
+  ]
+}
